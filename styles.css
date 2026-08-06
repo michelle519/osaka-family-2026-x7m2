@@ -73,6 +73,7 @@ a {
   white-space: nowrap;
 }
 
+.topbar > a,
 .nav-group a,
 .button {
   flex: 0 0 auto;
@@ -85,6 +86,7 @@ a {
   white-space: nowrap;
 }
 
+.topbar > a:focus-visible,
 .nav-group a:focus-visible,
 .button:focus-visible {
   outline: 3px solid rgba(62, 147, 201, 0.45);
@@ -92,8 +94,8 @@ a {
 }
 
 .hero {
-  min-height: 88vh;
-  padding: 8.1rem 5vw 4rem;
+  min-height: 74vh;
+  padding: 7rem 5vw 3.2rem;
 }
 
 .hero-grid {
@@ -123,8 +125,8 @@ h4 {
 }
 
 h1 {
-  max-width: 11ch;
-  font-size: clamp(3rem, 8vw, 6.5rem);
+  max-width: 15ch;
+  font-size: clamp(2.45rem, 5.2vw, 4.6rem);
 }
 
 h2 {
@@ -296,9 +298,13 @@ h4 {
 .online-map-grid,
 .transport-visual-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
   margin-bottom: 1rem;
+}
+
+.transport-visual-grid .online-figure:nth-child(3) {
+  grid-column: span 2;
 }
 
 .day1-helper-grid {
@@ -330,6 +336,7 @@ h4 {
 }
 
 .online-figure {
+  position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -339,10 +346,23 @@ h4 {
 
 .online-figure img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   object-fit: contain;
   background: #f8f3e9;
   padding: 0.55rem;
+}
+
+.online-figure a::after {
+  content: "點圖放大";
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  border-radius: 999px;
+  background: rgba(35, 49, 61, 0.88);
+  color: white;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 900;
 }
 
 .online-figure figcaption {
@@ -663,14 +683,19 @@ footer {
     font-size: 0.88rem;
   }
 
+  .topbar > a {
+    padding: 0.38rem 0.62rem;
+    font-size: 0.88rem;
+  }
+
   .hero {
     min-height: auto;
     padding: 8.35rem 1rem 3rem;
   }
 
   h1 {
-    max-width: 11ch;
-    font-size: clamp(2.35rem, 12vw, 3.6rem);
+    max-width: 14ch;
+    font-size: clamp(2rem, 9vw, 2.9rem);
   }
 
   h2 {
@@ -697,6 +722,10 @@ footer {
 
   .feature-gallery figure:first-child,
   .feature-gallery figure:nth-child(2) {
+    grid-column: auto;
+  }
+
+  .transport-visual-grid .online-figure:nth-child(3) {
     grid-column: auto;
   }
 

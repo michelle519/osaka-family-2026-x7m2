@@ -13,32 +13,23 @@
   <body>
     <header class="hero" id="top">
       <nav class="topbar" aria-label="主要導覽">
-        <div class="nav-group">
-          <span>每日行程</span>
-          <a href="#planning">每日攻略</a>
-          <a href="#day1-detail">Day 1 動線</a>
-          <a href="#daily-transport">每日交通</a>
-          <a href="#gallery">行程圖</a>
-        </div>
-        <div class="nav-group">
-          <span>行程注意</span>
-          <a href="#airport-rules">搭機安檢</a>
-          <a href="#entry">入境退稅</a>
-          <a href="#budget">費用票券</a>
-          <a href="#insurance">保險</a>
-        </div>
-        <div class="nav-group">
-          <span>其他</span>
-          <a href="#checklist">檢查表</a>
-          <a href="#sources">資料來源</a>
-          <a href="#trip-summary">總結</a>
-        </div>
+        <a href="#planning">每日總覽</a>
+        <a href="#day1">Day 1</a>
+        <a href="#day2">Day 2</a>
+        <a href="#day3">Day 3</a>
+        <a href="#day4">Day 4</a>
+        <a href="#day5">Day 5</a>
+        <a href="#day6">Day 6</a>
+        <a href="#day1-detail">Day 1 動線</a>
+        <a href="#gallery">行程圖</a>
+        <a href="#airport-rules">搭機安檢</a>
+        <a href="#budget">費用保險</a>
       </nav>
 
       <div class="hero-grid">
         <div>
           <p class="eyebrow">Osaka & Kyoto Family Trip · 2026/08/17 - 08/22</p>
-          <h1>大阪京都親子 6天5夜連假旅行攻略</h1>
+          <h1>大阪京都親子 6天5夜旅行攻略</h1>
           <p class="lead">
             這份頁面把每日行程、交通動線與雜誌風格攻略合在一起。適合出發前檢查，也適合旅途中用手機快速查「現在要做什麼、搭什麼車、注意什麼」。
           </p>
@@ -84,7 +75,7 @@
 
       <section class="section">
         <div class="plan-list">
-          <article class="plan-day">
+          <article class="plan-day" id="day1">
             <span class="day-badge">Day 1</span>
             <h3>抵達大阪・難波與道頓堀暖身</h3>
             <ul>
@@ -104,7 +95,7 @@
             </div>
           </article>
 
-          <article class="plan-day">
+          <article class="plan-day" id="day2">
             <span class="day-badge">Day 2</span>
             <h3>海之京都・天橋立一日遊</h3>
             <ul>
@@ -124,7 +115,7 @@
             </div>
           </article>
 
-          <article class="plan-day">
+          <article class="plan-day" id="day3">
             <span class="day-badge">Day 3</span>
             <h3>日本環球影城・任天堂世界全天攻略</h3>
             <ul>
@@ -144,7 +135,7 @@
             </div>
           </article>
 
-          <article class="plan-day">
+          <article class="plan-day" id="day4">
             <span class="day-badge">Day 4</span>
             <h3>京都清水寺・伏見稻荷・奈良公園</h3>
             <ul>
@@ -164,7 +155,7 @@
             </div>
           </article>
 
-          <article class="plan-day">
+          <article class="plan-day" id="day5">
             <span class="day-badge">Day 5</span>
             <h3>日本橋動漫公仔・新世界與阿倍野夜景</h3>
             <ul>
@@ -184,7 +175,7 @@
             </div>
           </article>
 
-          <article class="plan-day">
+          <article class="plan-day" id="day6">
             <span class="day-badge">Day 6</span>
             <h3>大阪市區自由散策・晚班機返台</h3>
             <ul>
@@ -286,15 +277,21 @@
         </div>
         <div class="transport-visual-grid">
           <figure class="online-figure">
-            <img src="https://www.kansai-airport.or.jp/sites/kix/files/styles/max_325x325/public/2025-10/railwaymap_en.png.webp" alt="關西機場官方鐵道路線圖" />
+            <a href="https://www.kansai-airport.or.jp/sites/kix/files/2025-10/railwaymap_en.png.webp" target="_blank" rel="noreferrer" aria-label="放大檢視關西機場官方鐵道路線圖">
+              <img src="https://www.kansai-airport.or.jp/sites/kix/files/styles/max_325x325/public/2025-10/railwaymap_en.png.webp" alt="關西機場官方鐵道路線圖" />
+            </a>
             <figcaption>KIX 官方鐵道路線圖：看關西機場往大阪市區方向。</figcaption>
           </figure>
           <figure class="online-figure">
-            <img src="https://www.kansai-airport.or.jp/sites/kix/files/styles/max_325x325/public/2025-10/map_train_2f_en.png.webp" alt="關西機場 T1 二樓到關西機場站地圖" />
+            <a href="https://www.kansai-airport.or.jp/sites/kix/files/2025-10/map_train_2f_en.png.webp" target="_blank" rel="noreferrer" aria-label="放大檢視關西機場 T1 二樓到關西機場站地圖">
+              <img src="https://www.kansai-airport.or.jp/sites/kix/files/styles/max_325x325/public/2025-10/map_train_2f_en.png.webp" alt="關西機場 T1 二樓到關西機場站地圖" />
+            </a>
             <figcaption>T1 二樓到關西機場站：入境後往 Railway / 鐵道指標走。</figcaption>
           </figure>
           <figure class="online-figure">
-            <img src="https://www.nankai.co.jp/sites/default/files/2026-02/stops_rootimg02.png" alt="南海 Airport Express 關西機場到難波停靠示意圖" />
+            <a href="https://www.nankai.co.jp/sites/default/files/2026-02/stops_rootimg02.png" target="_blank" rel="noreferrer" aria-label="放大檢視南海 Airport Express 停靠示意圖">
+              <img src="https://www.nankai.co.jp/sites/default/files/2026-02/stops_rootimg02.png" alt="南海 Airport Express 關西機場到難波停靠示意圖" />
+            </a>
             <figcaption>南海 Airport Express 停靠示意：自由座普通列車，到難波約 45 分。</figcaption>
           </figure>
         </div>
@@ -424,52 +421,6 @@
         </div>
       </section>
 
-      <section class="section" id="daily-transport" aria-labelledby="daily-transport-title">
-        <div class="section-heading">
-          <p class="eyebrow">Daily Transport</p>
-          <h2 id="daily-transport-title"><span class="icon">🚆</span>每日交通跟著行程看</h2>
-          <p>這裡不是另外背路線，而是每天照順序看：今天先去哪裡、搭什麼、何時要保留時間。</p>
-        </div>
-        <div class="transport-days">
-          <article>
-            <span>Day 1</span>
-            <h3>關西機場 → 難波 → 大國町 → 飯店 → 難波</h3>
-            <p><strong>搭乘：</strong>南海 Airport Express / 空港急行到難波 → 大阪 Metro 御堂筋線到大國町 → 步行到飯店寄行李 → 再出門往難波。</p>
-            <p><strong>時間重點：</strong>飛機時間看 Day 1 航班資訊卡；抵達後先處理入境與行李，再進市區寄放行李。</p>
-          </article>
-          <article>
-            <span>Day 2</span>
-            <h3>大國町 → KKday 集合點 → 天橋立 → 大阪</h3>
-            <p><strong>搭乘：</strong>Metro / 步行到日本橋、難波或梅田集合點 → KKday 遊覽車。</p>
-            <p><strong>時間重點：</strong>依憑證提前 15 分鐘到集合點；回大阪可能塞車，晚餐排簡單一點。</p>
-          </article>
-          <article>
-            <span>Day 3</span>
-            <h3>大國町 → USJ → 大國町</h3>
-            <p><strong>搭乘：</strong>省體力用計程車直達；電車為 JR 今宮 → 西九條 → 環球城。</p>
-            <p><strong>時間重點：</strong>清晨出門，門票與 App 截圖先準備；回程人潮多，保留排隊出站時間。</p>
-          </article>
-          <article>
-            <span>Day 4</span>
-            <h3>大國町 → KKday 集合點 → 京都奈良 → 大阪</h3>
-            <p><strong>搭乘：</strong>Metro / 步行到集合點 → 遊覽車串清水寺、伏見稻荷、奈良。</p>
-            <p><strong>時間重點：</strong>這天走路最多，回大阪後不再排遠距離行程。</p>
-          </article>
-          <article>
-            <span>Day 5</span>
-            <h3>大國町 → 黑門市場 / 日本橋 → 新世界 / 阿倍野</h3>
-            <p><strong>搭乘：</strong>Metro 到難波/日本橋，區域內以步行為主；晚上可 Metro 或計程車回飯店。</p>
-            <p><strong>時間重點：</strong>公仔戰利品多時，中途回飯店放東西再出門。</p>
-          </article>
-          <article>
-            <span>Day 6</span>
-            <h3>大阪市區 → KIX → 桃園</h3>
-            <p><strong>搭乘：</strong>南海 / JR 前往 KIX，20:00 搭 IT213 回台。</p>
-            <p><strong>時間重點：</strong>16:30-17:00 左右往機場移動，保留報到、托運、安檢與免稅品檢查時間。</p>
-          </article>
-        </div>
-      </section>
-
       <section class="section" id="airport-rules" aria-labelledby="airport-rules-title">
         <div class="section-heading">
           <p class="eyebrow">Airport Rules · Magazine Cards</p>
@@ -516,27 +467,17 @@
         </div>
       </section>
 
-      <section class="section two-col" id="entry" aria-labelledby="entry-title">
-        <div>
-          <p class="eyebrow">Before Landing</p>
-          <h2 id="entry-title"><span class="icon">🛂</span>入境表格與搭飛機注意事項</h2>
-          <ul class="check-list">
-            <li><strong>Visit Japan Web：</strong>出發前先填入境審查、海關申告，也可登錄免稅購物資訊。</li>
-            <li><strong>截圖備份：</strong>QR code、護照、機票、飯店地址、KKday 憑證、USJ 票券都存離線。</li>
-            <li><strong>液體限制：</strong>手提液體通常單瓶 100ml 內，裝入透明夾鏈袋。</li>
-            <li><strong>行動電源：</strong>放手提行李，不要托運。</li>
-            <li><strong>廉航提醒：</strong>虎航無餐點，登機前先吃或準備可攜帶點心。</li>
-          </ul>
-        </div>
-        <div>
-          <h3><span class="icon">🧾</span>退稅與免稅</h3>
+      <section class="section" id="entry" aria-labelledby="entry-title">
+        <div class="section-heading">
+          <p class="eyebrow">Tax-free Shopping</p>
+          <h2 id="entry-title"><span class="icon">🧾</span>退稅與免稅重點</h2>
           <p>這趟是 2026/08 出發，日本旅客免稅制度仍屬「店內免稅」期間；2026/11/01 起才會改為出境確認後退款方式。</p>
-          <ul class="check-list compact">
-            <li>購物時帶護照，達免稅門檻才可辦理。</li>
-            <li>消耗品未出境前不要拆封使用。</li>
-            <li>免稅品、收據與護照資訊集中整理，機場可能抽查。</li>
-            <li>若要退貨，保留收據與刷卡紀錄。</li>
-          </ul>
+        </div>
+        <div class="cards">
+          <article><h3>護照隨身</h3><p>購物時帶護照，達免稅門檻才可辦理；護照影本通常不能代替正本。</p></article>
+          <article><h3>消耗品不拆</h3><p>藥妝、食品等消耗品未出境前不要拆封使用，避免機場抽查時有問題。</p></article>
+          <article><h3>收據集中</h3><p>免稅品、收據與刷卡紀錄集中放，同一天大量購物時比較不會散掉。</p></article>
+          <article><h3>行李預留</h3><p>Day 5 公仔與藥妝可能很佔空間，最後兩天先預留托運重量。</p></article>
         </div>
       </section>
 
@@ -590,19 +531,6 @@
               <li>保險期間涵蓋出發到回台。</li>
             </ul>
           </article>
-        </div>
-      </section>
-
-      <section class="section" id="checklist" aria-labelledby="checklist-title">
-        <div class="section-heading">
-          <p class="eyebrow">Checklist</p>
-          <h2 id="checklist-title"><span class="icon">✅</span>出發前檢查表</h2>
-        </div>
-        <div class="cards">
-          <article><h3><span class="icon">🛂</span>證件</h3><p>護照、Visit Japan Web、機票、飯店地址、旅遊保險、信用卡客服電話。</p></article>
-          <article><h3><span class="icon">📱</span>手機</h3><p>eSIM/SIM、行動電源、充電線、離線地圖、KKday/USJ/交通票券截圖。</p></article>
-          <article><h3><span class="icon">☀️</span>8 月大阪</h3><p>防曬、帽子、陽傘、小毛巾、補水鹽或電解質飲、好走鞋。</p></article>
-          <article><h3><span class="icon">🛍️</span>購物</h3><p>護照隨身、退稅收據集中、免稅消耗品不要拆、行李重量預留。</p></article>
         </div>
       </section>
 
