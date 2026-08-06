@@ -17,11 +17,11 @@
           <span>每日行程</span>
           <a href="#planning">規劃表</a>
           <a href="#day1-detail">Day 1</a>
+          <a href="#daily-transport">每日交通</a>
           <a href="#gallery">行程圖</a>
         </div>
         <div class="nav-group">
           <span>行程注意</span>
-          <a href="#transport">航班交通</a>
           <a href="#entry">入境退稅</a>
           <a href="#budget">費用票券</a>
           <a href="#insurance">保險</a>
@@ -202,59 +202,165 @@
       <section class="section" id="day1-detail" aria-labelledby="day1-title">
         <div class="section-heading">
           <p class="eyebrow">Day 1 Detail</p>
-          <h2 id="day1-title"><span class="icon">🛬</span>Day 1 詳細動線：桃園到大阪</h2>
-          <p>這段整合自 `大阪京都_Day1_桃園到大阪.html`，保留機場、南海 Airport Express、新今宮轉計程車、難波心齋橋、道頓堀遊船與起司蛋糕的重點。</p>
+          <h2 id="day1-title"><span class="icon">🛬</span>Day 1 詳細動線：照時間走</h2>
+          <p>把航班、交通、行李、用餐與景點放在同一條時間軸。看這段就知道現在要做什麼、搭什麼車、注意什麼。</p>
         </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr><th>時間</th><th>安排</th><th>重點</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>04:30</td><td>桃園機場 T1 集合</td><td>辦理報到、托運與安檢。虎航無餐點，先準備早餐或機場簡餐。</td></tr>
-              <tr><td>06:40</td><td>IT210 桃園起飛</td><td>日本比台灣快 1 小時，抵達時間已是日本當地時間。</td></tr>
-              <tr><td>10:25</td><td>抵達 KIX T1</td><td>一家四口加行李，入境、領行李、洗手間與買交通票抓 60-90 分鐘。</td></tr>
-              <tr><td>11:45</td><td>搭南海 Airport Express</td><td>關西機場站 → 新今宮。一般空港急行即可，不一定要搭較貴特急。</td></tr>
-              <tr><td>12:40</td><td>新今宮 → 飯店</td><td>四人加行李可分乘兩台計程車，減少拖行李轉乘。</td></tr>
-              <tr><td>13:15</td><td>寄放行李 + 附近午餐</td><td>入住若為 16:00，先寄放行李，直接去難波吃午餐。</td></tr>
-              <tr><td>15:00</td><td>難波 → 心齋橋筋商店街</td><td>以室內商場與商店街為主，避開 8 月高溫。</td></tr>
-              <tr><td>17:30</td><td>戎橋、跑跑人與道頓堀拍照</td><td>先完成地標拍照，再買章魚燒或找咖啡店休息。</td></tr>
-              <tr><td>19:00</td><td>道頓堀水上觀光船</td><td>提早兌票，至少提前 15-20 分鐘回到乘船處。</td></tr>
-              <tr><td>20:00</td><td>晚餐 + 老爺爺起司蛋糕</td><td>依胃口選章魚燒、拉麵、丼飯或便利商店補給。</td></tr>
-              <tr><td>21:00</td><td>回飯店休息</td><td>整理 Day 2 天橋立用品，避免第一天過度消耗。</td></tr>
-            </tbody>
-          </table>
+        <div class="step-timeline">
+          <article class="step-card">
+            <div class="step-time"><span>04:30</span><small>桃園機場 T1</small></div>
+            <div class="step-icon" aria-hidden="true">🧳</div>
+            <div class="step-body">
+              <h3>集合、報到、托運、安檢</h3>
+              <p><strong>現在做什麼：</strong>辦理虎航報到、托運行李、通過安檢。</p>
+              <p><strong>注意：</strong>虎航無餐點，早餐先準備；行動電源放手提，不要托運。</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <div class="step-time"><span>06:40</span><small>IT210</small></div>
+            <div class="step-icon" aria-hidden="true">✈️</div>
+            <div class="step-body">
+              <h3>桃園 → 關西機場</h3>
+              <p><strong>搭什麼：</strong>臺灣虎航 IT210，TPE T1 → KIX T1。</p>
+              <p><strong>注意：</strong>10:25 抵達是日本當地時間，日本比台灣快 1 小時。</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <div class="step-time"><span>10:25</span><small>KIX T1</small></div>
+            <div class="step-icon" aria-hidden="true">🛂</div>
+            <div class="step-body">
+              <h3>抵達、入境、領行李</h3>
+              <p><strong>現在做什麼：</strong>入境審查、領行李、海關申告、洗手間、確認網路。</p>
+              <p><strong>注意：</strong>一家四口加行李，抓 60-90 分鐘比較安心；Visit Japan Web QR code 先備好。</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <div class="step-time"><span>11:45</span><small>機場鐵道</small></div>
+            <div class="step-icon" aria-hidden="true">🚆</div>
+            <div class="step-body">
+              <h3>關西機場 → 新今宮</h3>
+              <p><strong>搭什麼：</strong>南海 Airport Express / 空港急行，關西機場站 → 新今宮。</p>
+              <p><strong>注意：</strong>一般空港急行即可，不一定要搭較貴特急；上車後先安置大件行李。</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <div class="step-time"><span>12:40</span><small>短程移動</small></div>
+            <div class="step-icon" aria-hidden="true">🚕</div>
+            <div class="step-body">
+              <h3>新今宮 → 大國町飯店</h3>
+              <p><strong>搭什麼：</strong>四人加行李建議搭計程車，必要時分兩台。</p>
+              <p><strong>注意：</strong>車程短，能減少拖行李轉乘與走路負擔。</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <div class="step-time"><span>13:15</span><small>住宿周邊</small></div>
+            <div class="step-icon" aria-hidden="true">🏨</div>
+            <div class="step-body">
+              <h3>寄放行李 + 附近午餐</h3>
+              <p><strong>現在做什麼：</strong>到 Apartment Hotel 11 難波南 2 寄放行李，接著去難波或大國町附近吃午餐。</p>
+              <p><strong>吃什麼：</strong>拉麵、烏龍麵、炸豬排、百貨美食街，優先選有座位、不排太久的店。</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <div class="step-time"><span>15:00</span><small>難波商圈</small></div>
+            <div class="step-icon" aria-hidden="true">🛍️</div>
+            <div class="step-body">
+              <h3>難波 → 心齋橋筋商店街</h3>
+              <p><strong>怎麼走：</strong>從難波一路往心齋橋、道頓堀方向逛，不刻意折返。</p>
+              <p><strong>注意：</strong>8 月炎熱，以室內商場、地下街、商店街為主；累了就進咖啡店休息。</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <div class="step-time"><span>17:30</span><small>道頓堀</small></div>
+            <div class="step-icon" aria-hidden="true">📸</div>
+            <div class="step-body">
+              <h3>戎橋、跑跑人、道頓堀拍照</h3>
+              <p><strong>現在做什麼：</strong>先拍經典地標，再買章魚燒或找地方坐一下。</p>
+              <p><strong>注意：</strong>人多時先保護小孩與包包，拍照不要卡在橋中央太久。</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <div class="step-time"><span>19:00</span><small>遊船</small></div>
+            <div class="step-icon" aria-hidden="true">🚤</div>
+            <div class="step-body">
+              <h3>道頓堀水上觀光船</h3>
+              <p><strong>現在做什麼：</strong>依預約或兌票時間回乘船處，搭船看兩岸夜景。</p>
+              <p><strong>注意：</strong>至少提前 15-20 分鐘回到乘船處，並確認最後班次。</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <div class="step-time"><span>20:00</span><small>晚餐點心</small></div>
+            <div class="step-icon" aria-hidden="true">🍜</div>
+            <div class="step-body">
+              <h3>晚餐 + 老爺爺起司蛋糕</h3>
+              <p><strong>吃什麼：</strong>章魚燒、拉麵、丼飯、便利商店補給，或買 Rikuro 起司蛋糕回飯店。</p>
+              <p><strong>注意：</strong>第一天不要吃太晚，隔天是長程一日遊。</p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <div class="step-time"><span>21:00</span><small>回飯店</small></div>
+            <div class="step-icon" aria-hidden="true">🛏️</div>
+            <div class="step-body">
+              <h3>回飯店休息</h3>
+              <p><strong>現在做什麼：</strong>整理 Day 2 天橋立用品，幫手機、行動電源、相機充電。</p>
+              <p><strong>注意：</strong>水、雨具、暈車藥、薄外套、KKday 憑證先放進包包。</p>
+            </div>
+          </article>
         </div>
       </section>
 
-      <section class="section two-col" id="transport" aria-labelledby="transport-title">
-        <div>
-          <p class="eyebrow">Flight & Routes</p>
-          <h2 id="transport-title"><span class="icon">🚆</span>航班、行李與交通路線</h2>
-          <div class="info-list">
-            <article>
-              <h3><span class="icon">✈️</span>去程 IT210</h3>
-              <p>2026/08/17 06:40 TPE 桃園機場 T1 起飛，10:25 KIX 關西機場 T1 抵達。臺灣虎航，經濟艙，A320，無餐點。</p>
-            </article>
-            <article>
-              <h3><span class="icon">🌙</span>回程 IT213</h3>
-              <p>2026/08/22 20:00 KIX 關西機場 T1 起飛，21:50 TPE 桃園機場 T1 抵達。建議至少起飛前 3 小時抵達機場。</p>
-            </article>
-            <article>
-              <h3><span class="icon">🎒</span>虎航手提行李</h3>
-              <p>1 件手提行李 + 1 件個人隨身物品，合計 2 件總重不得超過 10kg；手提行李尺寸上限 54 × 38 × 23cm。</p>
-            </article>
-          </div>
+      <section class="section" id="daily-transport" aria-labelledby="daily-transport-title">
+        <div class="section-heading">
+          <p class="eyebrow">Daily Transport</p>
+          <h2 id="daily-transport-title"><span class="icon">🚆</span>每日交通跟著行程看</h2>
+          <p>這裡不是另外背路線，而是每天照順序看：今天先去哪裡、搭什麼、何時要保留時間。</p>
         </div>
-        <div class="route-box">
-          <h3><span class="icon">🗺️</span>路線速查</h3>
-          <ol>
-            <li>KIX → 住宿：南海或 JR 進大阪市區，再用 Metro/JR/計程車接大國町。</li>
-            <li>住宿 → USJ：JR 今宮 → 西九條 → JR 夢咲線/櫻島線 → 環球城。</li>
-            <li>住宿 → 日本橋：Metro 到難波/日本橋，或視體力步行。</li>
-            <li>一日遊集合：依 KKday 訂單，常見為日本橋、難波或梅田周邊。</li>
-          </ol>
-          <p class="note">實際列車班次以出發當天 Google Maps、JR、南海、Osaka Metro 官方資訊為準。</p>
+        <div class="transport-days">
+          <article>
+            <span>Day 1</span>
+            <h3>桃園 → 關西機場 → 大國町 → 難波</h3>
+            <p><strong>搭乘：</strong>IT210 → 南海 Airport Express / JR → 新今宮或難波 → 計程車/Metro 到飯店 → 步行或 Metro 到難波。</p>
+            <p><strong>時間重點：</strong>10:25 抵達後抓 60-90 分鐘入境；行李多時用短程計程車，不拖著行李逛街。</p>
+          </article>
+          <article>
+            <span>Day 2</span>
+            <h3>大國町 → KKday 集合點 → 天橋立 → 大阪</h3>
+            <p><strong>搭乘：</strong>Metro / 步行到日本橋、難波或梅田集合點 → KKday 遊覽車。</p>
+            <p><strong>時間重點：</strong>依憑證提前 15 分鐘到集合點；回大阪可能塞車，晚餐排簡單一點。</p>
+          </article>
+          <article>
+            <span>Day 3</span>
+            <h3>大國町 → USJ → 大國町</h3>
+            <p><strong>搭乘：</strong>省體力用計程車直達；電車為 JR 今宮 → 西九條 → 環球城。</p>
+            <p><strong>時間重點：</strong>清晨出門，門票與 App 截圖先準備；回程人潮多，保留排隊出站時間。</p>
+          </article>
+          <article>
+            <span>Day 4</span>
+            <h3>大國町 → KKday 集合點 → 京都奈良 → 大阪</h3>
+            <p><strong>搭乘：</strong>Metro / 步行到集合點 → 遊覽車串清水寺、伏見稻荷、奈良。</p>
+            <p><strong>時間重點：</strong>這天走路最多，回大阪後不再排遠距離行程。</p>
+          </article>
+          <article>
+            <span>Day 5</span>
+            <h3>大國町 → 黑門市場 / 日本橋 → 新世界 / 阿倍野</h3>
+            <p><strong>搭乘：</strong>Metro 到難波/日本橋，區域內以步行為主；晚上可 Metro 或計程車回飯店。</p>
+            <p><strong>時間重點：</strong>公仔戰利品多時，中途回飯店放東西再出門。</p>
+          </article>
+          <article>
+            <span>Day 6</span>
+            <h3>大阪市區 → KIX → 桃園</h3>
+            <p><strong>搭乘：</strong>南海 / JR 前往 KIX，20:00 搭 IT213 回台。</p>
+            <p><strong>時間重點：</strong>16:30-17:00 左右往機場移動，保留報到、托運、安檢與免稅品檢查時間。</p>
+          </article>
         </div>
       </section>
 

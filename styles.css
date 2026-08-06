@@ -168,8 +168,10 @@ h4 {
 .route-box,
 .callout,
 .plan-day,
+.step-card,
 .cards article,
 .info-list article,
+.transport-days article,
 .editor-box,
 .magazine-article {
   border: 1px solid var(--line);
@@ -254,6 +256,82 @@ h4 {
   padding: 0.25rem 0.7rem;
   font-size: 0.8rem;
   font-weight: 900;
+}
+
+.step-timeline {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.step-card {
+  display: grid;
+  grid-template-columns: 7.2rem 3.2rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  padding: 1rem;
+}
+
+.step-time {
+  border-right: 1px dashed var(--line);
+  padding-right: 0.8rem;
+}
+
+.step-time span {
+  display: block;
+  color: var(--coral);
+  font-size: 1.7rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.step-time small {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.step-icon {
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 999px;
+  background: #f6ead7;
+  font-size: 1.6rem;
+}
+
+.step-body h3 {
+  margin-bottom: 0.45rem;
+}
+
+.step-body p {
+  margin: 0.35rem 0;
+}
+
+.transport-days {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.transport-days article {
+  padding: 1.15rem;
+}
+
+.transport-days span {
+  display: inline-flex;
+  margin-bottom: 0.7rem;
+  border-radius: 999px;
+  background: var(--blue);
+  color: white;
+  padding: 0.22rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.transport-days p {
+  margin: 0.5rem 0 0;
 }
 
 .gallery {
@@ -503,14 +581,45 @@ footer {
   .route-box,
   .callout,
   .plan-day,
+  .step-card,
   .cards article,
   .info-list article,
+  .transport-days article,
   .magazine-article {
     box-shadow: 0 10px 28px rgba(46, 38, 24, 0.1);
   }
 
   footer {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 760px) {
+  .step-card {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  .step-time {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    border-right: 0;
+    border-bottom: 1px dashed var(--line);
+    padding: 0 0 0.7rem;
+  }
+
+  .step-time small {
+    margin-top: 0;
+  }
+
+  .step-icon {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .transport-days {
+    grid-template-columns: 1fr;
   }
 }
 
