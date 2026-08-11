@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大阪六天五夜行程 - 8/17~8/22</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .checklist li.checked .checkbox { background: #5B7A8C; border-color: #5B7A8C; color: white; }
+        .checklist li.checked .item-text { text-decoration: line-through; color: #aaa; }
+        .bottom-nav .nav-item.active { color: #5B7A8C; font-weight: 700; }
+        .bottom-nav .nav-item.active .nav-icon { transform: scale(1.15); }
+        .btn:active { transform: scale(0.96); }
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 5px; height: 100%;
+            background: #5B7A8C;
+            border-radius: 3px 0 0 3px;
+        }
+        .timeline li { border-bottom: 1px dashed #f0e8e0; }
+        .timeline li:last-child { border-bottom: none; }
+        .kkday-itinerary .stop { border-bottom: 1px dotted #D0E3F7; }
+        .kkday-itinerary .stop:last-child { border-bottom: none; }
+        .tag {
+            display: inline-block;
+            font-size: 10px;
+            padding: 2px 7px;
+            border-radius: 10px;
+            margin-right: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="font-sans bg-[#FFF8F0] max-w-[480px] mx-auto min-h-screen relative pt-[56px] pb-[68px] antialiased">
+
+    <header class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-[#5B7A8C] text-white z-[100] flex items-center justify-between px-4 h-[56px] shadow-md">
+        <span class="text-lg font-bold tracking-wide">🍣 大阪之旅</span>
+        <span class="text-[11px] bg-white/20 px-3 py-1 rounded-full whitespace-nowrap">8/17(一) - 8/22(六)</span>
+    </header>
+
+    <div id="app"></div>
+
+    <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-white flex border-t border-gray-200 z-[100] h-[68px] shadow-[0_-2px_10px_rgba(0,0,0,0.05)]" id="bottomNav"></nav>
+
+    <script>
+        const tripData = {
+            schedule: [
+                // ========== Day 1 ==========
+                {
+                    day: 'Day 1',
+                    date: '8/17（一）',
+                    title: '抵達大阪 × 難波探索 × 觀光船',
+                    items: [
+                        { time: '04:00', desc: '🚗 出發前往桃園機場' },
+                        { time: '06:40', desc: '✈️ 起飛 → 關西機場' },
+                        { time: '10:25', desc: '🛬 抵達關西機場，入境領行李' },
+                        { time: '11:00', desc: '<span class="tag bg-purple-100 text-purple-800">南海電鐵</span>空港急行→難波站 約45分 ¥930' },
+                        { time: '11:45', desc: '🏨 步行至飯店寄放行李' },
+                        { time: '12:00', desc: '<span class="tag bg-amber-100 text-amber-800">午餐</span>道頓堀：一蘭拉麵 / 螃蟹道樂' },
+                        { time: '13:30', desc: '<span class="tag bg-green-100 text-green-800">購物</span>心齋橋筋、美國村買衣服球鞋' },
+                        { time: '17:30', desc: '<span class="tag bg-sky-100 text-sky-800">拍照</span>道頓堀戎橋、跑跑人、唐吉軻德' },
+                        { time: '18:30', desc: '<span class="tag bg-sky-100 text-sky-800">體驗</span>🚢 道頓堀觀光船 約20分 ¥1,500/大人' },
+                        { time: '19:00', desc: '<span class="tag bg-amber-100 text-amber-800">甜點</span>🎂 老爺爺起司蛋糕 難波本店' },
+                        { time: '20:00', desc: '🏨 回飯店休息' }
+                    ],
+                    links: [
+                        { label: '一蘭拉麵 道頓堀', url: 'https://www.google.com/maps/search/一蘭拉麵+道頓堀', cls: 'bg-green-50 text-green-700 border border-green-200' },
+                        { label: '心齋橋筋商店街', url: 'https://www.google.com/maps/search/心齋橋筋商店街', cls: 'bg-green-50 text-green-700 border border-green-200' },
+                        { label: '道頓堀觀光船', url: 'https://www.google.com/maps/search/道頓堀觀光船+乘船處', cls: 'bg-green-50 text-green-700 border border-green-200' },
+                        { label: '老爺爺起司蛋糕', url: 'https://www.google.com/maps/search/老爺爺起司蛋糕+難波本店', cls: 'bg-green-50 text-green-700 border border-green-200' },
+                        { label: '南海電鐵路線圖', url: 'https://www.nankai.co.jp/tc_railway/traffic/railmap.html', cls: 'bg-amber-50 text-amber-700 border border-amber-200' }
+                    ]
+                },
+                // ========== Day 2 ==========
+                {
+                    day: 'Day 2',
+                    date: '8/18（二）',
+                    title: 'KKday 天橋立+伊根舟屋一日遊',
+                    items: [
+                        { time: '06:30', desc: '🌅 起床，便利商店買早餐' },
+                        { time: '07:00', desc: '<span class="tag bg-purple-100 text-purple-800">地鐵</span>🚇 大國町站→難波站（御堂筋線 1站約2分）¥190，步行約6分至集合點' },
+                        { time: '07:15', desc: '<span class="tag bg-red-100 text-red-700">集合</span>📍 蟹道樂道頓堀東店（請提早15分鐘到）' },
+                        { time: '07:30', desc: '🚌 KKday 出發！' }
+                    ],
+                    kkday: {
+                        title: '🚌 KKday 行程路線',
+                        stops: [
+                            '<span class="font-bold text-[#1565C0]">07:30</span> 大阪出發 — 蟹道樂道頓堀東店',
+                            '<span class="font-bold text-[#1565C0]">08:45</span> 京都出發 — 京都站八條口停車場',
+                            '<span class="font-bold text-[#1565C0]">10:20</span> ⛩️ <strong>天橋立</strong>（停留140分）<br>漫步沙洲、纜車上ViewLand觀景台、智恩寺文殊堂',
+                            '<span class="font-bold text-[#1565C0]">13:30</span> 🚤 <strong>伊根灣</strong>（停留90分）<br>伊根舟屋、遊船餵海鷗',
+                            '<span class="font-bold text-[#1565C0]">17:30</span> 京都降車 — 京都站八條口',
+                            '<span class="font-bold text-[#1565C0]">18:30</span> 🏁 大阪降車 — 蟹道樂道頓堀東店'
+                        ]
+                    },
+                    itemsAfter: [
+                        { time: '18:30', desc: '🚌 返回道頓堀解散' },
+                        { time: '18:45', desc: '<span class="tag bg-amber-100 text-amber-800">晚餐</span>🥩 松坂牛燒肉M 或 國產牛燒肉放題' },
+                        { time: '21:00', desc: '🏨 回飯店休息' }
+                    ],
+                    links: [
+                        { label: 'KKday行程連結', url: 'https://www.kkday.com/zh-tw/product/25439-amanohashidate-day-trip-kyoto-ine-funaya-ine-bay-cruise-depart-from-osaka', cls: 'bg-sky-50 text-sky-700 border border-sky-200' },
+                        { label: '蟹道樂道頓堀東店（集合點）', url: 'https://www.google.com/maps/search/蟹道樂+道頓堀東店', cls: 'bg-green-50 text-green-700 border border-green-200' },
+                        { label: '松坂牛燒肉M 難波', url: 'https://www.google.com/maps/search/松坂牛燒肉M+難波', cls: 'bg-green-50 text-green-700 border border-green-200' },
+                        { label: '大國町站', url: 'https://www.google.com/maps/search/大國町站+大阪', cls: 'bg-green-50 text-green-700 border border-green-200' },
+                        { label: '難波站', url: 'https://www.google.com/maps/search/難波站+大阪', cls: 'bg-green-50 text-green-700 border border-green-200' }
+                    ]
+                },
+                // ========== Day 3（已更新完整環球影城行程） ==========
+                {
+                    day: 'Day 3',
+                    date: '8/19（三）',
+                    title: '日本環球影城 USJ 全日！',
+                    items: [
+                        { time: '06:00', desc: '🌅 起床！簡單早餐，帶好門票QR碼' },
+                        { time: '06:30', desc: '<span class="tag bg-purple-100 text-purple-800">地鐵+JR</span>🚇 大國町→本町（地鐵）→西九條（JR）→環球影城（JR）約30分' },
+                        { time: '07:30', desc: '🎢 <strong>抵達 USJ 門口！</strong> 排隊入場' },
+                        { time: '08:00', desc: '🎢 <strong>咚奇剛礦車</strong>（第一個衝！）' },
+                        { time: '08:40', desc: '🏎️ <strong>瑪利歐賽車</strong>' },
+                        { time: '09:20', desc: '🦖 <strong>耀西冒險</strong>' },
+                        { time: '10:00', desc: '☕ <strong>點心休息</strong>（咖啡廳或路邊小攤）' },
+                        { time: '10:30', desc: '🕵️ <strong>柯南 4D 劇場</strong>' },
+                        { time: '11:10', desc: '🦕 <strong>侏羅紀公園</strong>（乘車遊）' },
+                        { time: '12:00', desc: '🎭 <strong>芙麗連秀</strong>' },
+                        { time: '12:40', desc: '🍌 <strong>小小兵</strong>（瘋狂乘車遊）' },
+                        { time: '13:20', desc: '💦 <strong>水世界</strong>（看秀）' },
+                        { time: '14:00', desc: '🚀 <strong>太空幻想列車</strong>' },
+                        { time: '14:40', desc: '🍔 <strong>吃東西休息</strong>（園區餐廳）' },
+                        { time: '15:30', desc: '🦈 <strong>大白鯊</strong>' },
+                        { time: '16:10', desc: '🎪 <strong>看秀</strong>（花車遊行或街頭表演）' },
+                        { time: '17:00', desc: '⚡ <strong>哈利波特園區</strong>（禁忌之旅、活米村）' },
+                        { time: '18:30', desc: '🛍️ <strong>購物</strong>（紀念品商店）' },
+                        { time: '20:00', desc: '🚃 搭電車回難波' },
+                        { time: '21:00', desc: '🏨 回飯店休息' }
+                    ],
+                    links: [
+                        { label: '日本環球影城 USJ', url: 'https://www.google.com/maps/search/日本環球影城', cls: 'bg-green-50 text-green-700 border border-green-200' },
+                        { label: 'JR西日本 路線圖', url: 'https://www.westjr.co.jp/global/tc/travel-information/route_map/', cls: 'bg-amber-50 text-amber-700 border border-amber-200' }
+                    ]
+                },
+                // ========== Day 4 ==========
+                {
+                    day: 'Day 4',
+                    date: '8/20（四）',
+                    title: '黑門市場 × 日本橋動漫 × 阿倍野 HARUKAS',
+                    items: [
+                        { time: '08:00', desc: '🌅 起床，飯店簡單早餐' },
+                        { time: '08:30', desc: '<span class="tag bg-purple-100 text-purple-800">地鐵</span>🚇 大國町站→日本橋站（堺筋線）約5分 ¥190' },
+                        { time: '08:45', desc: '<span class="tag bg-amber-100 text-amber-800">美食</span>🐟 黑門市場：新鮮海鮮、鮪魚生魚片、和牛串燒' },
+                        { time: '10:45', desc: '🚶 步行至日本橋動漫街（約5分）' },
+                        { time: '11:00', desc: '<span class="tag bg-green-100 text-green-800">動漫</span>Animate大阪日本橋店、Gee!Store、駿河屋' },
+                        { time: '12:30', desc: '<span class="tag bg-amber-100 text-amber-800">午餐</span>日本橋周邊：拉麵或炸豬排' },
+                        { time: '14:00', desc: '<span class="tag bg-green-100 text-green-800">繼續逛</span>Joshin Super Kidland、模型店、扭蛋店、中古遊戲' },
+                        { time: '15:30', desc: '<span class="tag bg-amber-100 text-amber-800">點心</span>🐙 <strong>Takoyaki Wanaka Sennichimae</strong> 道頓堀超人氣章魚燒！' },
+                        { time: '16:00', desc: '<span class="tag bg-purple-100 text-purple-800">地鐵</span>🚇 日本橋站→天王寺站（堺筋線轉谷町線）約8分 ¥230' },
+                        { time: '16:15', desc: '<span class="tag bg-sky-100 text-sky-800">景觀</span>🏙️ 阿倍野 HARUKAS 300觀景台 60樓！現場¥2,000／網路預購約¥1,500，營業至22:00' },
+                        { time: '18:00', desc: '<span class="tag bg-amber-100 text-amber-800">晚餐</span>🍽️ 阿倍野近鐵百貨美食街（12~14樓）營業至22:00' },
+                        { time: '19:30', desc: '<span class="tag bg-green-100 text-green-800">購物</span>阿倍野 Q\'s Mall 或 天王寺 MIO' },
+                        { time: '21:00', desc: '<span class="tag bg-purple-100 text-purple-800">地鐵</span>🚇 天王寺站→大國町站（谷町線轉堺筋線）約10分 ¥230' },
+                        { time: '21:15', desc: '🏨 返回飯店' }
+                    ],
+                    highlight: {
+                        title: '⚠️ 注意',
+                        content: 'Animate大阪日本橋店 11:00 才開門，先搭地鐵去黑門市場剛剛好！傍晚去阿倍野HARUKAS看夜景超美～ HARUKAS 300 建議網路預購票較便宜（約¥1,500），現場買¥2,000。'
+                    },
+                    links: [
+                        { label: '黑門市場', url: 'https://www.google.com/maps/search/黑門市場+大阪', cls: 'bg-green-50 text-green-700 border border-green-200' },
+                        { label: '黑門市場 介紹影片', url: 'https://stg01.shun-gate.com/zh/movie/movie_9/', cls: 'bg-red-50 text-red-700 border border-red-200' },
+                        { label: '黑門市場 官方網站', url: 'https://www.kuromon.com/ch.php', cls: 'bg-amber-50 text-amber-700 border border-amber-200' },
+                        { label: 'Animate 大阪日本橋店', url: 'https://www.google.com/maps/search/Animate+大阪日本橋店', cls: 'bg-green-50 text-green-700 border border-green-200' },
+                        { label: 'Takoyaki Wanaka 千日前', url: 'https://www.google.com/maps/search/Takoyaki+Wanaka+千日前', cls: 'bg-green-50 text-green-700 border border-green-200' },
+                        { label: '阿倍野 HARUKAS', url: 'https://www.google.com/maps/search/阿倍野HARUKAS+大阪', cls: 'bg-green-50 text-green-700 border border-green-200' },
+                        { label: 'HARUKAS 夜影影片', url: 'https://www.bilibili.com/video/BV1X7411n7kx/', cls: 'bg-red-50 text-red-700 border border-red-200' },
+                        { label: 'HARUKAS 夜景介紹', url: 'https://cooljapan-videos.com/tw/articles/nfi9qos4', cls: 'bg-red-50 text-red-700 border border-red-200' },
+                        { label: '阿倍野美食街影片', url: 'https://www.youtube.com/watch?v=5so2eRmu38I', cls: 'bg-red-50 text-red-700 border border-red-200' },
+                        { label: '大國町站', url: 'https://www.google.com/maps/search/大國町站+大阪', cls: 'bg-green-50 text-green-700 border border-green-200' }
+                    ]
+                },
+                // ========== Day 5 ==========
+                {
+                    day: 'Day 5',
+                    date: '8/21（五）',
+                    title: 'KKday 京都奈良一日遊',
+                    items: [
+                        { time: '06:45', desc: '🌅 起床，便利商店買早餐' },
+                        { time: '07:30', desc: '<span class="tag bg-purple-100 text-purple-800">地鐵</span>🚇 大國町站→日本橋站（堺筋線）約5分 ¥190' },
+                        { time: '07:45', desc: '<span class="tag bg-red-100 text-red-700">集合</span>📍 日本橋2號出口（請提早15分鐘到）' },
+                        { time: '08:00', desc: '🚌 KKday巴士出發！' }
+                    ],
+                    kkday: {
+                        title: '🚌 KKday 行程路線',
+                        stops: [
+                            '<span class="font-bold text-[#1565C0]">08:00</span> 大阪出發 — 日本橋2號出口',
+                            '⛩️ 清水寺、花見小路、伏見稻荷大社（千本鳥居）',
+                            '🦌 奈良公園餵鹿、東大寺',
+                            '<span class="font-bold text-[#1565C0]">18:00</span> 🏁 返回大阪 — 難波心齋橋解散'
+                        ]
+                    },
+                    itemsAfter: [
+                        { time: '18:00', desc: '🚌 抵達難波心齋橋' },
+                        { time: '18:30', desc: '<span class="tag bg-amber-100 text-amber-800">晚餐</span>🥩 和牛燒肉一斗 難波店' },
+                        { time: '21:00', desc: '🏨 回飯店收拾行李' }
+                    ],
+                    links: [
+                        { label: 'KKday行程連結', url: 'https://www.kkday.com/zh-tw/product/135949-japan-kyoto-nara-day-tour-kiyomizu-temple-hanami-koji-fushimi-toka-shrine-nara-park', cls: 'bg-sky-50 text-sky-700 border border-sky-200' },
+                        { label: '日本橋2號出口（集合點）', url: 'https://www.google.com/maps/search/日本橋站+2號出口+大阪', cls: 'bg-green-50 text-green-700 border border-green-200' },
+                        { label: '和牛燒肉一斗 難波', url: 'https://www.google.com/maps/search/和牛燒肉一斗+難波', cls: 'bg-green-50 text-green-700 border border-green-200' }
+                    ]
+                },
+                // ========== Day 6 ==========
+                {
+                    day: 'Day 6',
+                    date: '8/22（六）',
+                    title: '木津市場 × 臨空城Outlet × 回國',
+                    items: [
+                        { time: '07:00', desc: '🌅 早起整理行李，退房' },
+                        { time: '07:30', desc: '<span class="tag bg-amber-100 text-amber-800">早餐</span>🐟 木津市場！海鮮丼、買伴手禮' },
+                        { time: '09:00', desc: '<span class="tag bg-purple-100 text-purple-800">南海電鐵</span>難波站→臨空城站 約35分 ¥770' },
+                        { time: '09:45', desc: '<span class="tag bg-red-100 text-red-700">寄物</span>🧳 臨空城站置物櫃寄放行李 ¥600-800' },
+                        { time: '10:00', desc: '<span class="tag bg-green-100 text-green-800">購物</span>🛍️ 臨空城Rinku Premium Outlets 大採購！' },
+                        { time: '12:30', desc: '<span class="tag bg-amber-100 text-amber-800">午餐</span>Outlet內美食街' },
+                        { time: '14:30', desc: '<span class="tag bg-green-100 text-green-800">繼續逛</span>最後衝刺！Nike、Adidas、Gap、免稅店' },
+                        { time: '16:30', desc: '<span class="tag bg-purple-100 text-purple-800">南海電鐵</span>🧳 拿行李，搭電車至關西機場（約5分 ¥370）' },
+                        { time: '17:00', desc: '🛫 機場報到、免稅店最後購物' },
+                        { time: '20:00', desc: '✈️ 起飛 → 桃園機場' },
+                        { time: '21:50', desc: '🏠 抵達台灣！' }
+                    ],
+                    highlight: {
+                        title: '💡 臨空城Outlet小提醒',
+                        content: '臨空城站有大型置物櫃（¥600-800），下車先寄放行李。Outlet離車站步行3分鐘，逛完直接搭一站到關西機場（5分鐘）超方便！'
+                    },
+                    links: [
+                        { label: '木津市場', url: 'https://www.google.com/maps/search/木津市場+大阪', cls: 'bg-green-50 text-green-700 border border-green-200' },
+                        { label: '木津市場 參考影片', url: 'https://www.youtube.com/watch?v=D9QuQ71PiFE&t=2s', cls: 'bg-red-50 text-red-700 border border-red-200' },
+                        { label: '臨空城 Premium Outlets', url: 'https://www.google.com/maps/search/臨空城Premium+Outlets+大阪', cls: 'bg-green-50 text-green-700 border border-green-200' },
+                        { label: '臨空城Outlet 參考影片', url: 'https://www.youtube.com/watch?v=58z4laTEui4', cls: 'bg-red-50 text-red-700 border border-red-200' },
+                        { label: '南海電鐵路線圖', url: 'https://www.nankai.co.jp/tc_railway/traffic/railmap.html', cls: 'bg-amber-50 text-amber-700 border border-amber-200' }
+                    ]
+                }
+            ],
+
+            transport: {
+                hotel: { name: '大國町站', line: '堺筋線', walk: '2分鐘' },
+                routes: [
+                    { icon: '✈️', title: '關西機場 → 難波（南海電鐵）', detail: '空港急行｜約45分｜¥930/人', link: 'https://www.nankai.co.jp/tc_railway/traffic/railmap.html' },
+                    { icon: '🚇', title: '大國町站 → 難波站（地鐵）', detail: '御堂筋線｜1站約2分｜¥190/人（Day 2集合）' },
+                    { icon: '🚇→🚃', title: '大國町 → 本町（地鐵）→ 西九條（JR）→ USJ（JR）', detail: '地鐵堺筋線 → JR大阪環狀線 → JR夢咲線｜約30分｜¥390/人（Day 3）' },
+                    { icon: '🚇', title: '大國町站 → 日本橋站（地鐵）', detail: '堺筋線｜約5分｜¥190/人' },
+                    { icon: '🚇', title: '日本橋站 → 天王寺站（地鐵）', detail: '堺筋線轉谷町線｜約8分｜¥230/人' },
+                    { icon: '🚇', title: '天王寺站 → 大國町站（地鐵）', detail: '谷町線轉堺筋線｜約10分｜¥230/人' },
+                    { icon: '🛍️', title: '難波 → 臨空城Outlet（南海電鐵）', detail: '空港急行｜約35分｜¥770/人' },
+                    { icon: '✈️', title: '臨空城 → 關西機場（南海電鐵）', detail: '空港急行｜約5分｜¥370/人' },
+                    { icon: '🚶', title: '難波站 → 蟹道樂道頓堀東店', detail: '步行約6分鐘｜Day 2 集合點' }
+                ],
+                tip: '建議用手機綁定Suica/ICOCA交通卡，搭地鐵、JR、便利商店都可用！Day 3 去USJ記得要搭JR，本町站內可轉乘。'
+            },
+
+            hotel: {
+                name: 'Apartment Hotel 11 難波南 2',
+                address: '〒556-0014 大阪府大阪市浪速区大国1丁目2-22',
+                checkin: '15:00',
+                checkout: '10:00',
+                metro: '大國町站 步行約2分鐘',
+                walk_dotonbori: '步行至道頓堀約10分鐘',
+                walk_kuromon: '步行至木津市場約5分鐘',
+                map: 'https://www.google.com/maps/search/大阪府大阪市浪速区大国1丁目2-22',
+                tip: '步行5分鐘到木津市場、10分鐘到道頓堀心齋橋商圈、2分鐘到大國町地鐵站，樓下有便利商店，位置超方便！'
+            },
+
+            luggage: {
+                '📄 必備文件': [
+                    '護照（效期6個月以上）',
+                    '機票行程單（手機存PDF）',
+                    '飯店訂房確認單',
+                    'KKday訂單QR碼（D2、D5）',
+                    'USJ門票QR碼',
+                    '海外旅遊保險證明'
+                ],
+                '💳 金錢': [
+                    '日幣現金（建議¥15-20萬）',
+                    '信用卡（JCB/Visa/Master）',
+                    'Suica/ICOCA交通卡'
+                ],
+                '📱 3C': [
+                    '手機 + 充電線',
+                    '行動電源（不可託運！）',
+                    '上網SIM卡 / eSIM / WiFi機'
+                ],
+                '👕 衣物（8月大阪28-35°C）': [
+                    '短袖上衣×6',
+                    '短褲/裙子×3',
+                    '舒適球鞋（會走很多路！）',
+                    '防曬外套/帽子',
+                    '薄長袖（室內冷氣強）'
+                ],
+                '🧴 用品': [
+                    '防曬乳',
+                    '個人藥品（感冒/腸胃/OK繃）',
+                    '購物袋（日本便利商店袋子要錢）',
+                    '摺疊傘（午後雷陣雨）'
+                ]
+            },
+
+            budget: {
+                items: [
+                    { day: 'D1', desc: '南海電鐵+午餐+觀光船', amount: '¥15,000' },
+                    { day: 'D2', desc: '地鐵+晚餐+早餐（KKday已付）', amount: '¥13,000' },
+                    { day: 'D3', desc: 'USJ門票+餐飲+地鐵+JR', amount: '¥47,000' },
+                    { day: 'D4', desc: '黑門市場+午餐+章魚燒+阿倍野觀景台+晚餐+地鐵', amount: '¥20,000' },
+                    { day: 'D5', desc: '地鐵+和牛晚餐（KKday已付）', amount: '¥16,000' },
+                    { day: 'D6', desc: '木津市場+臨空城Outlet購物+南海電鐵', amount: '¥15,000' }
+                ],
+                total: '¥126,000',
+                tip: '不含KKday團費（約NT$2,500-3,500/人）和USJ門票（¥9,400/人）。臨空城Outlet可刷卡，建議留點預算大採購！'
+            },
+
+            suica: {
+                rate: '1 日圓 = 0.225 新台幣（僅供參考）',
+                rows: [
+                    { day: 'Day 1', route: '關西機場 → 難波（南海電鐵）', single: '¥930', four: '¥3,720', single_twd: '約$209', four_twd: '約$837' },
+                    { day: 'Day 2', route: '大國町 → 難波（地鐵御堂筋線）', single: '¥190', four: '¥760', single_twd: '約$43', four_twd: '約$171' },
+                    { day: 'Day 3', route: '大國町→本町（地鐵）→西九條（JR）→USJ（JR）來回', single: '¥780', four: '¥3,120', single_twd: '約$176', four_twd: '約$702' },
+                    { day: 'Day 4', route: '大國町 → 日本橋（地鐵）', single: '¥190', four: '¥760', single_twd: '約$43', four_twd: '約$171' },
+                    { day: 'Day 4', route: '日本橋 → 天王寺（地鐵）', single: '¥230', four: '¥920', single_twd: '約$52', four_twd: '約$207' },
+                    { day: 'Day 4', route: '天王寺 → 大國町（地鐵）', single: '¥230', four: '¥920', single_twd: '約$52', four_twd: '約$207' },
+                    { day: 'Day 5', route: '大國町 → 日本橋（地鐵）', single: '¥190', four: '¥760', single_twd: '約$43', four_twd: '約$171' },
+                    { day: 'Day 6', route: '難波 → 臨空城（南海電鐵）', single: '¥770', four: '¥3,080', single_twd: '約$173', four_twd: '約$693' },
+                    { day: 'Day 6', route: '臨空城 → 關西機場（南海電鐵）', single: '¥370', four: '¥1,480', single_twd: '約$83', four_twd: '約$333' }
+                ],
+                subtotals: [
+                    { day: 'Day 1', single: '¥930', four: '¥3,720', single_twd: '約$209', four_twd: '約$837' },
+                    { day: 'Day 2', single: '¥190', four: '¥760', single_twd: '約$43', four_twd: '約$171' },
+                    { day: 'Day 3', single: '¥780', four: '¥3,120', single_twd: '約$176', four_twd: '約$702' },
+                    { day: 'Day 4', single: '¥650', four: '¥2,600', single_twd: '約$146', four_twd: '約$585' },
+                    { day: 'Day 5', single: '¥190', four: '¥760', single_twd: '約$43', four_twd: '約$171' },
+                    { day: 'Day 6', single: '¥1,140', four: '¥4,560', single_twd: '約$257', four_twd: '約$1,026' }
+                ],
+                total: { single: '¥3,880', four: '¥15,520', single_twd: '約$873', four_twd: '約$3,492' },
+                summary: [
+                    { label: '每人總車資', value: '¥3,880（約 $873）' },
+                    { label: '四人總車資', value: '¥15,520（約 $3,492）' },
+                    { label: '建議每人儲值', value: '¥4,500～¥5,000（約 $1,013～$1,125）' },
+                    { label: '建議四人總儲值', value: '¥18,000～¥20,000（約 $4,050～$4,500）' }
+                ],
+                note: '• Day 3 去USJ：地鐵（大國町→本町）+ JR（本町→西九條→環球影城），來回合計¥780。<br>• 已包含 Day 2 地鐵（大國町→難波）¥190/人。<br>• 以上金額皆為單趟合計，已包含來回或轉乘。<br>• Suica 餘額可在便利商店、自動販賣機、部分餐廳使用，多儲的不用擔心浪費。<br>• 台幣金額為四捨五入至整數，實際金額請以當下匯率為準。'
+            }
+        };
+
+        // ============================================================
+        // 🏗️ 渲染函式
+        // ============================================================
+
+        function renderSchedule() {
+            let html = '<div class="flex items-center gap-2 text-2xl font-extrabold text-[#1B2D5B] mb-3"><span class="text-2xl">🗓️</span>每日行程</div>';
+            tripData.schedule.forEach(day => {
+                html += `<div class="day-card bg-white rounded-2xl p-4 mb-3 shadow-sm border border-[#F0E0D0]">`;
+                html += `<div class="font-bold text-[#1B2D5B] text-lg flex items-center gap-2">📅 ${day.day}｜${day.date}</div>`;
+                html += `<div class="text-xs text-gray-500 mb-2">${day.title}</div>`;
+
+                html += '<ul class="timeline list-none">';
+                day.items.forEach(item => {
+                    html += `<li class="py-2 flex gap-2 text-sm items-start"><span class="font-bold text-red-700 min-w-[52px] shrink-0 text-xs text-center bg-red-50 px-2 py-0.5 rounded-full">${item.time}</span><span class="flex-1 text-sm">${item.desc}</span></li>`;
+                });
+                html += '</ul>';
+
+                if (day.kkday) {
+                    html += `<div class="bg-sky-50 rounded-xl p-3 my-2 border border-sky-200"><h5 class="text-[#1565C0] mb-1.5 text-sm font-bold">${day.kkday.title}</h5>`;
+                    day.kkday.stops.forEach(stop => {
+                        html += `<div class="text-xs py-1 border-b border-dotted border-sky-200 last:border-0">${stop}</div>`;
+                    });
+                    html += '</div>';
+                }
+
+                if (day.itemsAfter) {
+                    html += '<ul class="timeline list-none">';
+                    day.itemsAfter.forEach(item => {
+                        html += `<li class="py-2 flex gap-2 text-sm items-start"><span class="font-bold text-red-700 min-w-[52px] shrink-0 text-xs text-center bg-red-50 px-2 py-0.5 rounded-full">${item.time}</span><span class="flex-1 text-sm">${item.desc}</span></li>`;
+                    });
+                    html += '</ul>';
+                }
+
+                if (day.highlight) {
+                    html += `<div class="bg-gradient-to-br from-gray-50 to-amber-50 rounded-xl p-3 my-2 border border-gray-200"><h4 class="text-[#5B7A8C] mb-1 text-sm font-bold">${day.highlight.title}</h4><p class="text-xs text-gray-600">${day.highlight.content}</p></div>`;
+                }
+
+                if (day.links) {
+                    html += '<div class="flex flex-wrap gap-1.5 mt-2">';
+                    day.links.forEach(link => {
+                        const icon = link.cls.includes('red-') ? '▶️ ' : '';
+                        html += `<a href="${link.url}" class="btn inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-semibold no-underline transition-all duration-200 ${link.cls}" target="_blank">${icon}${link.label}</a>`;
+                    });
+                    html += '</div>';
+                }
+
+                html += '</div>';
+            });
+            return html;
+        }
+
+        function renderTransport() {
+            const t = tripData.transport;
+            let html = '<div class="flex items-center gap-2 text-2xl font-extrabold text-[#1B2D5B] mb-3"><span class="text-2xl">🚃</span>交通資訊</div>';
+
+            html += `<div class="day-card bg-white rounded-2xl p-4 mb-3 shadow-sm border border-[#F0E0D0]"><div class="font-bold text-[#1B2D5B] text-lg">🏨 飯店最近車站</div>`;
+            html += `<p class="text-sm">地鐵<strong>${t.hotel.name}</strong>（${t.hotel.line}）步行約${t.hotel.walk}</p>`;
+            html += `<a href="https://www.google.com/maps/search/${encodeURIComponent(t.hotel.name+'站+大阪')}" class="btn inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-semibold no-underline transition-all duration-200 bg-green-50 text-green-700 border border-green-200" target="_blank">${t.hotel.name}導航</a></div>`;
+
+            t.routes.forEach(route => {
+                html += `<div class="bg-white rounded-xl p-3 mb-2 shadow-sm flex items-center gap-2 text-sm"><span class="text-3xl">${route.icon}</span><div><strong>${route.title}</strong><br><span class="text-xs text-gray-500">${route.detail}</span>`;
+                if (route.link) {
+                    html += `<br><a href="${route.link}" class="btn inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold no-underline transition-all duration-200 bg-amber-50 text-amber-700 border border-amber-200 mt-1.5" target="_blank">🔗 路線圖</a>`;
+                }
+                html += '</div></div>';
+            });
+
+            html += `<div class="bg-gradient-to-br from-gray-50 to-amber-50 rounded-xl p-3 border border-gray-200"><h4 class="text-[#5B7A8C] mb-1 text-sm font-bold">💡 交通小提醒</h4><p class="text-xs text-gray-600">${t.tip}</p></div>`;
+            return html;
+        }
+
+        function renderHotel() {
+            const h = tripData.hotel;
+            let html = '<div class="flex items-center gap-2 text-2xl font-extrabold text-[#1B2D5B] mb-3"><span class="text-2xl">🏨</span>住宿資訊</div>';
+            html += `<div class="day-card bg-white rounded-2xl p-4 mb-3 shadow-sm border border-[#F0E0D0]"><div class="font-bold text-[#1B2D5B] text-lg">${h.name}</div>`;
+            html += `<p class="text-sm">${h.address.replace(/\n/g, '<br>')}</p>`;
+            html += `<p class="text-sm">📞 請透過訂房平台聯繫房東</p>`;
+            html += `<p class="text-sm">🕒 入住 ${h.checkin} / 退房 ${h.checkout}</p>`;
+            html += `<p class="text-sm">🚇 ${h.metro}</p>`;
+            html += `<p class="text-sm">🚶 ${h.walk_dotonbori}</p>`;
+            html += `<p class="text-sm">🐟 ${h.walk_kuromon}</p>`;
+            html += `<a href="${h.map}" class="btn inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-semibold no-underline transition-all duration-200 bg-green-50 text-green-700 border border-green-200" target="_blank">開啟飯店導航</a></div>`;
+            html += `<div class="bg-gradient-to-br from-gray-50 to-amber-50 rounded-xl p-3 border border-gray-200"><h4 class="text-[#5B7A8C] mb-1 text-sm font-bold">📍 周邊機能</h4><p class="text-xs text-gray-600">${h.tip}</p></div>`;
+            return html;
+        }
+
+        function renderLuggage() {
+            let html = '<div class="flex items-center gap-2 text-2xl font-extrabold text-[#1B2D5B] mb-3"><span class="text-2xl">🧳</span>行李清單</div>';
+            for (const [category, items] of Object.entries(tripData.luggage)) {
+                html += `<div class="day-card bg-white rounded-2xl p-4 mb-3 shadow-sm border border-[#F0E0D0]"><div class="font-bold text-[#1B2D5B] text-lg">${category}</div><ul class="checklist list-none">`;
+                items.forEach(item => {
+                    html += `<li class="py-2.5 border-b border-gray-100 last:border-0 text-sm flex items-center gap-2.5" onclick="toggleCheck(this)"><span class="checkbox w-[22px] h-[22px] border-2 border-gray-300 rounded-md shrink-0 flex items-center justify-center transition-all duration-200 text-sm text-transparent">✓</span><span class="item-text flex-1">${item}</span></li>`;
+                });
+                html += '</ul></div>';
+            }
+            return html;
+        }
+
+        function renderBudget() {
+            const b = tripData.budget;
+            let html = '<div class="flex items-center gap-2 text-2xl font-extrabold text-[#1B2D5B] mb-3"><span class="text-2xl">💰</span>每日預估花費（4人）</div>';
+            html += '<div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-[#F0E0D0]"><table class="w-full text-xs border-collapse"><thead><tr class="bg-[#1B2D5B] text-white"><th class="p-2.5 text-left text-[11px]">日期</th><th class="p-2.5 text-left text-[11px]">主要花費</th><th class="p-2.5 text-left text-[11px]">預估 ¥</th></tr></thead><tbody>';
+            b.items.forEach(item => {
+                html += `<tr><td class="p-2.5 border-b border-gray-100">${item.day}</td><td class="p-2.5 border-b border-gray-100">${item.desc}</td><td class="p-2.5 border-b border-gray-100">${item.amount}</td></tr>`;
+            });
+            html += `<tr class="font-bold bg-[#FFF8F0]"><td colspan="2" class="p-2.5">合計（不含購物、KKday、USJ門票）</td><td class="p-2.5">${b.total}</td></tr>`;
+            html += '</tbody></table></div>';
+            html += `<div class="bg-gradient-to-br from-gray-50 to-amber-50 rounded-xl p-3 mt-3 border border-gray-200"><h4 class="text-[#5B7A8C] mb-1 text-sm font-bold">💡 提醒</h4><p class="text-xs text-gray-600">${b.tip}</p></div>`;
+            return html;
+        }
+
+        function renderSuica() {
+            const s = tripData.suica;
+            let html = '<div class="flex items-center gap-2 text-2xl font-extrabold text-[#1B2D5B] mb-3"><span class="text-2xl">💳</span>西瓜卡車資總表</div>';
+            html += `<div class="text-xs text-gray-500 bg-gray-50 px-3 py-2 rounded-lg inline-block mb-3">📌 匯率：${s.rate}</div>`;
+            html += '<div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-[#F0E0D0]"><table class="w-full text-xs border-collapse"><thead><tr class="bg-[#1B2D5B] text-white"><th class="p-2 text-left text-[11px]">日期</th><th class="p-2 text-left text-[11px]">路線</th><th class="p-2 text-left text-[11px]">單人（¥）</th><th class="p-2 text-left text-[11px]">四人（¥）</th><th class="p-2 text-left text-[11px]">單人（NT$）</th><th class="p-2 text-left text-[11px]">四人（NT$）</th></tr></thead><tbody>';
+
+            const dayTotals = {};
+            s.rows.forEach(row => {
+                if (!dayTotals[row.day]) {
+                    dayTotals[row.day] = { single: 0, four: 0 };
+                }
+                dayTotals[row.day].single += parseInt(row.single.replace('¥', ''));
+                dayTotals[row.day].four += parseInt(row.four.replace('¥', ''));
+            });
+
+            let currentDay = '';
+            s.rows.forEach(row => {
+                if (currentDay && currentDay !== row.day) {
+                    const total = dayTotals[currentDay];
+                    const twdSingle = Math.round(total.single * 0.225);
+                    const twdFour = Math.round(total.four * 0.225);
+                    html += `<tr class="bg-gray-50 font-semibold"><td colspan="2" class="p-2">${currentDay} 小計</td><td class="p-2">¥${total.single}</td><td class="p-2">¥${total.four}</td><td class="p-2">約$${twdSingle}</td><td class="p-2">約$${twdFour}</td></tr>`;
+                }
+                currentDay = row.day;
+                html += `<tr><td class="p-2 border-b border-gray-100">${row.day}</td><td class="p-2 border-b border-gray-100">${row.route}</td><td class="p-2 border-b border-gray-100">${row.single}</td><td class="p-2 border-b border-gray-100">${row.four}</td><td class="p-2 border-b border-gray-100">${row.single_twd}</td><td class="p-2 border-b border-gray-100">${row.four_twd}</td></tr>`;
+            });
+
+            if (currentDay) {
+                const total = dayTotals[currentDay];
+                const twdSingle = Math.round(total.single * 0.225);
+                const twdFour = Math.round(total.four * 0.225);
+                html += `<tr class="bg-gray-50 font-semibold"><td colspan="2" class="p-2">${currentDay} 小計</td><td class="p-2">¥${total.single}</td><td class="p-2">¥${total.four}</td><td class="p-2">約$${twdSingle}</td><td class="p-2">約$${twdFour}</td></tr>`;
+            }
+
+            html += `<tr class="font-bold bg-[#FFF8F0]"><td colspan="2" class="p-2">總計（6天）</td><td class="p-2">${s.total.single}</td><td class="p-2">${s.total.four}</td><td class="p-2">${s.total.single_twd}</td><td class="p-2">${s.total.four_twd}</td></tr>`;
+            html += '</tbody></table></div>';
+
+            html += `<div class="bg-gradient-to-br from-gray-50 to-amber-50 rounded-xl p-3 mt-3 border border-gray-200"><h4 class="text-[#5B7A8C] mb-1.5 text-sm font-bold">👥 每人與四人總覽</h4>`;
+            html += '<table class="w-full text-sm border-collapse">';
+            s.summary.forEach(item => {
+                html += `<tr><td class="py-1 font-semibold">${item.label}</td><td class="py-1 text-right">${item.value}</td></tr>`;
+            });
+            html += '</table></div>';
+
+            html += `<div class="bg-gradient-to-br from-gray-50 to-amber-50 rounded-xl p-3 mt-3 border border-gray-200"><h4 class="text-[#5B7A8C] mb-1 text-sm font-bold">📌 補充說明</h4><p class="text-xs text-gray-600">${s.note}</p></div>`;
+            return html;
+        }
+
+        // ============================================================
+        // 🚀 渲染所有頁籤
+        // ============================================================
+
+        const app = document.getElementById('app');
+
+        const tabs = [
+            { id: 'schedule', label: '每日行程', icon: '📅', render: renderSchedule },
+            { id: 'transport', label: '交通', icon: '🚃', render: renderTransport },
+            { id: 'hotel', label: '住宿', icon: '🏨', render: renderHotel },
+            { id: 'luggage', label: '行李', icon: '🧳', render: renderLuggage },
+            { id: 'budget', label: '預算', icon: '💰', render: renderBudget },
+            { id: 'suica', label: '交通費', icon: '💳', render: renderSuica }
+        ];
+
+        tabs.forEach((tab, index) => {
+            const div = document.createElement('div');
+            div.id = `tab-${tab.id}`;
+            div.className = `tab-content${index === 0 ? ' active' : ''}`;
+            div.innerHTML = tab.render();
+            app.appendChild(div);
+        });
+
+        const nav = document.getElementById('bottomNav');
+        tabs.forEach((tab, index) => {
+            const btn = document.createElement('button');
+            btn.className = `nav-item flex-1 flex flex-col items-center justify-center text-[10px] text-gray-400 cursor-pointer gap-0.5 border-none bg-transparent transition-all duration-200${index === 0 ? ' active' : ''}`;
+            btn.innerHTML = `<span class="nav-icon text-xl transition-all duration-200">${tab.icon}</span>${tab.label}`;
+            btn.onclick = () => switchTab(tab.id);
+            nav.appendChild(btn);
+        });
+
+        // ============================================================
+        // 🔧 功能函式
+        // ============================================================
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById('tab-' + tabName).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            const tabIndex = tabs.findIndex(t => t.id === tabName);
+            if (tabIndex >= 0) document.querySelectorAll('.nav-item')[tabIndex].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+            saveChecklistState();
+        }
+
+        function saveChecklistState() {
+            const allLists = document.querySelectorAll('.checklist');
+            const state = {};
+            allLists.forEach((list, listIndex) => {
+                const items = list.querySelectorAll('li');
+                const checkedItems = [];
+                items.forEach((item, itemIndex) => {
+                    if (item.classList.contains('checked')) checkedItems.push(itemIndex);
+                });
+                state['list-' + listIndex] = checkedItems;
+            });
+            localStorage.setItem('osaka-checklist', JSON.stringify(state));
+        }
+
+        function loadChecklistState() {
+            const saved = localStorage.getItem('osaka-checklist');
+            if (!saved) return;
+            const state = JSON.parse(saved);
+            const allLists = document.querySelectorAll('.checklist');
+            allLists.forEach((list, listIndex) => {
+                const checkedItems = state['list-' + listIndex] || [];
+                const items = list.querySelectorAll('li');
+                checkedItems.forEach(itemIndex => {
+                    if (items[itemIndex]) items[itemIndex].classList.add('checked');
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadChecklistState);
+    </script>
+</body>
+</html>
