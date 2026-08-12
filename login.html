@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <title>登入｜大阪之旅</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #24313b;
+      --muted: #6f777c;
+      --paper: #fff8ee;
+      --coral: #e9685d;
+      --blue: #4d8299;
+      --line: #e7ded2;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(244, 182, 78, .28), transparent 28rem),
+        radial-gradient(circle at 92% 82%, rgba(77, 130, 153, .22), transparent 30rem),
+        var(--paper);
+      color: var(--ink);
+      font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    }
+
+    .decoration {
+      position: fixed;
+      font-size: clamp(3.5rem, 9vw, 7rem);
+      opacity: .12;
+      pointer-events: none;
+      filter: grayscale(.2);
+    }
+
+    .decoration:first-of-type { top: 7%; left: 5%; transform: rotate(-12deg); }
+    .decoration:nth-of-type(2) { right: 5%; bottom: 7%; transform: rotate(14deg); }
+
+    .login-card {
+      width: min(100%, 420px);
+      padding: clamp(28px, 6vw, 46px);
+      border: 1px solid rgba(36, 49, 59, .1);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, .88);
+      box-shadow: 0 24px 70px rgba(53, 44, 34, .14);
+      backdrop-filter: blur(16px);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: #edf4f6;
+      color: var(--blue);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+    }
+
+    h1 { margin: 0; font-size: clamp(2rem, 8vw, 2.8rem); line-height: 1.15; }
+    .subtitle { margin: 12px 0 28px; color: var(--muted); line-height: 1.7; }
+
+    .field { margin-top: 18px; }
+    label { display: block; margin-bottom: 8px; font-size: .9rem; font-weight: 800; }
+    .input-wrap { position: relative; }
+
+    input {
+      width: 100%;
+      min-height: 52px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fffdfa;
+      padding: 0 48px 0 15px;
+      color: var(--ink);
+      font: inherit;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    input:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(77, 130, 153, .14); }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%; right: 10px;
+      transform: translateY(-50%);
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      padding: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .login-button {
+      width: 100%;
+      min-height: 54px;
+      margin-top: 26px;
+      border: 0;
+      border-radius: 15px;
+      background: var(--blue);
+      box-shadow: 0 10px 24px rgba(77, 130, 153, .28);
+      color: white;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform .15s, filter .15s;
+    }
+
+    .login-button:hover { filter: brightness(.95); }
+    .login-button:active { transform: scale(.98); }
+    .login-button:disabled { cursor: wait; opacity: .7; }
+
+    .message {
+      min-height: 24px;
+      margin: 14px 0 0;
+      color: #bd3e3e;
+      font-size: .88rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .hint {
+      margin: 18px 0 0;
+      padding-top: 18px;
+      border-top: 1px dashed var(--line);
+      color: var(--muted);
+      font-size: .8rem;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .hint code { color: var(--coral); font-family: inherit; font-weight: 900; }
+  </style>
+</head>
+<body>
+  <div class="decoration" aria-hidden="true">🏯</div>
+  <div class="decoration" aria-hidden="true">🍣</div>
+
+  <main class="login-card">
+    <div class="badge">✈️ OSAKA TRIP 2026</div>
+    <h1>旅程，從這裡開始。</h1>
+    <p class="subtitle">登入後查看大阪六天五夜的完整行程與旅行資訊。</p>
+
+    <form id="loginForm" novalidate>
+      <div class="field">
+        <label for="password">密碼</label>
+        <div class="input-wrap">
+          <input id="password" name="password" type="password" inputmode="numeric" autocomplete="current-password" placeholder="請輸入密碼" required autofocus>
+          <button class="toggle-password" id="togglePassword" type="button" aria-label="顯示密碼">👁️</button>
+        </div>
+      </div>
+
+      <button class="login-button" id="loginButton" type="submit">登入查看行程</button>
+      <p class="message" id="message" role="alert" aria-live="polite"></p>
+    </form>
+
+    <p class="hint">請輸入旅行專屬密碼</p>
+  </main>
+
+  <script>
+    const AUTH_KEY = 'osakaTripAuth';
+    const SESSION_HOURS = 12;
+    const form = document.getElementById('loginForm');
+    const passwordInput = document.getElementById('password');
+    const message = document.getElementById('message');
+    const loginButton = document.getElementById('loginButton');
+
+    try {
+      const session = JSON.parse(localStorage.getItem(AUTH_KEY));
+      if (session && session.expiresAt > Date.now()) window.location.replace('index2.html');
+    } catch (_) {
+      localStorage.removeItem(AUTH_KEY);
+    }
+
+    document.getElementById('togglePassword').addEventListener('click', function () {
+      const showing = passwordInput.type === 'text';
+      passwordInput.type = showing ? 'password' : 'text';
+      this.textContent = showing ? '👁️' : '🙈';
+      this.setAttribute('aria-label', showing ? '顯示密碼' : '隱藏密碼');
+    });
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      message.textContent = '';
+
+      const password = passwordInput.value;
+      if (!password) {
+        message.textContent = '請輸入密碼。';
+        passwordInput.focus();
+        return;
+      }
+
+      loginButton.disabled = true;
+      if (password === '0817') {
+        localStorage.setItem(AUTH_KEY, JSON.stringify({
+          expiresAt: Date.now() + SESSION_HOURS * 60 * 60 * 1000
+        }));
+        window.location.replace('index2.html');
+        return;
+      }
+
+      message.textContent = '帳號或密碼錯誤，請再試一次。';
+      passwordInput.value = '';
+      passwordInput.focus();
+      loginButton.disabled = false;
+    });
+  </script>
+</body>
+</html>
